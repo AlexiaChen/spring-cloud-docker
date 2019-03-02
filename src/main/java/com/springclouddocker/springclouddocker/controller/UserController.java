@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ *  User Micro-Service
+ *  Actually, In product enviroment. User Service is one process on a Server (separated from Movie Service with a process on a server)
+ */
 @RestController
 public class UserController {
 
