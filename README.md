@@ -1,7 +1,7 @@
 # spring-cloud-docker
 Learning Spring Cloud &amp; Docker
 
-## Run Processes
+## Run Processes without eureka server
 
 - first. Run User Service. 
 cd user-service
