@@ -24,3 +24,23 @@ two nodes Arch:
    
    
 - Acccess http://peer1:8761 or http://peer2:8762, you will find the other replica node
+
+## Eureka Server REST API
+Eureka Server provides APIs that register your non-JVM micro-service into Eureka Server, 
+Or discovery other micro-services
+
+
+- register new app instance:   POST /eureka/apps/[app-id]
+- delete registered app instance: DELETE /eureka/apps/[app-id]/[instance-id]
+- send app instance heartbeat: PUT /eureka/apps/[app-id]/[instance-id]
+- query for all instances: GET /eureka/apps
+- query for all app id instance: GET /eureka/apps/[app-id]
+
+and so on.
+
+## Eureka Server self protection
+use eureka.server.enable-selft-preservation=false disable self protection feature.
+
+## Eureka Client select IP register to eureka server
+https://blog.csdn.net/u011164906/article/details/84504135 
+
