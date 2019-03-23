@@ -1,6 +1,7 @@
 package com.springclouddocker.movieservice.controller;
 
 import com.springclouddocker.movieservice.domain.User;
+import com.springclouddocker.movieservice.feign.UserFeignClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class MovieController {
     private String userServiceUrl;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private UserFeignClient userFeignClient;
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -38,12 +38,11 @@ public class MovieController {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
-
     @GetMapping("/user/{id}")
     public User findById(@PathVariable Long id){
 
         // movie service call user service findById API. User service in another process in distributed env
-        return this.restTemplate.getForObject(this.userServiceUrl + id, User.class);
+        return this.userFeignClient.findById(id);
     }
 
     @GetMapping("/user-service-instance/info")
