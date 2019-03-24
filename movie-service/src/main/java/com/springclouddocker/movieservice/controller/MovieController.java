@@ -68,6 +68,10 @@ public class MovieController {
                 .target(UserFeignClient.class, "http://microservice-user-service");
     }
 
+
+    /**
+     * URL：http://localhost:8002/user-user/[id]
+     */
     @GetMapping("/user-user/{id}")
     public User findByUserId(@PathVariable Long id){
 
@@ -75,11 +79,30 @@ public class MovieController {
         return this.userUserFeignClient.findById(id);
     }
 
+    /**
+     * URL：http://localhost:8002/user-admin/[id]
+     */
     @GetMapping("/user-admin/{id}")
     public User findByAdminId(@PathVariable Long id){
 
         // movie service call user service findById API. User service in another process in distributed env
         return this.adminUserFeignClient.findById(id);
+    }
+
+    /**
+     * URL：http://localhost:8002/user-user/get?id=1&username=张三
+     */
+    @GetMapping("/user-user/get")
+    public User get(User user) {
+        return this.userUserFeignClient.get(user.getId(), user.getUsername());
+    }
+
+    /**
+     * URL：http://localhost:8002/user-user/post?id=1&username=张三
+     */
+    @GetMapping("/user-user/post")
+    public User post(User user) {
+        return this.userUserFeignClient.post(user);
     }
 
     @GetMapping("/user-service-instance/info")
