@@ -90,7 +90,7 @@ public class MovieController {
     }
 
     /**
-     * URL：http://localhost:8002/user-user/get?id=1&username=张三
+     * URL：http://localhost:8002/user-user/get?id=1&username=Mr.Zhang
      */
     @GetMapping("/user-user/get")
     public User get(User user) {
@@ -98,7 +98,7 @@ public class MovieController {
     }
 
     /**
-     * URL：http://localhost:8002/user-user/post?id=1&username=张三
+     * URL：http://localhost:8002/user-user/post?id=1&username=Lynn
      */
     @GetMapping("/user-user/post")
     public User post(User user) {

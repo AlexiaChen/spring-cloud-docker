@@ -48,12 +48,18 @@ public class UserController {
         return user;
     }
 
+    /*
+    * Input params is equal to Out Params
+    */
     @GetMapping("/get")
     public User get(User user){
         return user;
     }
 
-    @PostMapping("post")
+    /*
+     * Input params is equal to Out Params
+     */
+    @PostMapping("/post")
     public User post(User user){
         return user;
     }
