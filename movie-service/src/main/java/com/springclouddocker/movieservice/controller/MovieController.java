@@ -35,11 +35,12 @@ public class MovieController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieController.class);
 
+    private UserFeignClient userUserFeignClient;
+    private UserFeignClient adminUserFeignClient;
+
     @Value("${user.userServiceUrl}")
     private String userServiceUrl;
 
-    private UserFeignClient userUserFeignClient;
-    private UserFeignClient adminUserFeignClient;
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -47,13 +48,24 @@ public class MovieController {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     public MovieController(Decoder decoder, Encoder encoder, Client client, Contract contract){
-        this.userUserFeignClient = Feign.builder().client(client).encoder(encoder).decoder(decoder).contract(contract)
-                .requestInterceptor(new BasicAuthRequestInterceptor("user", "user123")).target(UserFeignClient.class, userServiceUrl);
-        this.adminUserFeignClient = Feign.builder().client(client).encoder(encoder).decoder(decoder).contract(contract)
+        this.userUserFeignClient = Feign.builder()
+                .client(client)
+                .encoder(encoder)
+                .decoder(decoder)
+                .contract(contract)
+                .requestInterceptor(new BasicAuthRequestInterceptor("user", "user123"))
+                .target(UserFeignClient.class, "http://microservice-user-service");
+
+        this.adminUserFeignClient = Feign.builder()
+                .client(client)
+                .encoder(encoder)
+                .decoder(decoder)
+                .contract(contract)
                 .requestInterceptor(new BasicAuthRequestInterceptor("admin", "admin123"))
-                .target(UserFeignClient.class, userServiceUrl);
+                .target(UserFeignClient.class, "http://microservice-user-service");
     }
 
     @GetMapping("/user-user/{id}")

@@ -1,11 +1,12 @@
 package com.springclouddocker.movieservice.feign;
 
 import com.springclouddocker.movieservice.domain.User;
-import feign.Param;
-import feign.RequestLine;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface UserFeignClient {
 
-    @RequestLine("GET /{id}")
-    public User findById(@Param("id") Long id);
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public User findById(@PathVariable("id") Long id);
 }
