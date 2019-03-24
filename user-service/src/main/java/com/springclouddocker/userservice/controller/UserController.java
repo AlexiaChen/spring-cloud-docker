@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -44,6 +45,16 @@ public class UserController {
         }
 
         User user = this.userRepository.findOne(id);
+        return user;
+    }
+
+    @GetMapping("/get")
+    public User get(User user){
+        return user;
+    }
+
+    @PostMapping("post")
+    public User post(User user){
         return user;
     }
 }
