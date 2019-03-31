@@ -1,0 +1,56 @@
+server:
+  port: 8002
+
+
+
+logging:
+  level:
+    root: INFO
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+              BasicExtractor: TRACE
+    com:
+      springclouddocker:
+        movieservice:
+          feign:
+            UserFeignClient: DEBUG
+
+# User Service URL config
+user:
+  userServiceUrl: http://microservice-user-service/
+
+# actuator endpoint of info conf
+info:
+  app:
+    name: @project.artifactId@
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @java.version@
+      target: @java.version@
+
+spring:
+  application:
+    name: microservice-movie-service
+
+# eureka client
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:123@localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+# register service ip to eureka server
+  instance:
+    prefer-ip-address: true
+
+# enable heathcheck
+    healthcheck:
+      enbale: true
+
+
+
