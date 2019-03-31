@@ -1,0 +1,53 @@
+server:
+  port: 8000
+
+spring:
+    jpa:
+      generate-ddl: false
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+    datasource:
+      platform: h2
+      schema: classpath:schema.sql
+      data: classpath:data.sql
+    application:
+      name: microservice-user-service
+
+
+logging:
+  level:
+    root: INFO
+    org:
+      hibernate:
+            type:
+              descriptor:
+                    sql:
+                      BasicBinder: TRACE
+                      BasicExtractor: TRACE
+
+
+# actuator endpoint of info conf
+info:
+  app:
+    name: @project.artifactId@
+    encoding: @project.build.sourceEncoding@
+    app:
+      java:
+        source: @java.version@
+        target: @java.version@
+
+# eureka client
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:123@localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true  # register service ip to eureka server
+    healthcheck:
+      enbale: true
+    instance:
+    prefer-ip-address: true
+    metadata-map:
+      my-metadata: meta-mathxh # metadata
+      my-house: boston
