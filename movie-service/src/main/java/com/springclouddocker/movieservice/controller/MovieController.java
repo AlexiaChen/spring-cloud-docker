@@ -1,5 +1,7 @@
 package com.springclouddocker.movieservice.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.springclouddocker.movieservice.domain.User;
 import com.springclouddocker.movieservice.feign.UserFeignClient;
 import feign.Client;
@@ -72,6 +74,7 @@ public class MovieController {
     /**
      * URL：http://localhost:8002/user-user/[id]
      */
+    @HystrixCommand(fallbackMethod = "findByUserIdFallBack")
     @GetMapping("/user-user/{id}")
     public User findByUserId(@PathVariable Long id){
 
@@ -119,5 +122,14 @@ public class MovieController {
         // print which node of user-service
         MovieController.LOGGER.info("{}:{}:{}", serviceInstance.getServiceId(), serviceInstance.getHost(),
                 serviceInstance.getPort());
+    }
+
+
+    public User findByUserIdFallBack(Long id){
+        User user = new User();
+        user.setId(-9999L);
+        user.setName("Default Account");
+        user.setUsername("Default User");
+        return user;
     }
 }
